@@ -25,7 +25,6 @@ public class UserService {
 
     //회원가입
     @Transactional
-
     public MsgResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
