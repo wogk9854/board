@@ -17,6 +17,11 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+//    @OneToMany
+//    private List<User> users = new ArrayList<>();
+
+
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;

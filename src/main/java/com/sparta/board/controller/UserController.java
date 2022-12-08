@@ -2,6 +2,7 @@ package com.sparta.board.controller;
 
 
 import com.sparta.board.dto.LoginRequestDto;
+import com.sparta.board.dto.MsgResponseDto;
 import com.sparta.board.dto.SignupRequestDto;
 import com.sparta.board.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,15 +19,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public String signup(@RequestBody SignupRequestDto signupRequestDto){
-        userService.signup(signupRequestDto);
-        return "회원가입성공";
+    public MsgResponseDto signup(@RequestBody SignupRequestDto signupRequestDto){
+        return userService.signup(signupRequestDto);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response){
-        userService.login(loginRequestDto, response);
-        return "success";
+    public MsgResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response){
+        return userService.login(loginRequestDto, response);
     }
 
 

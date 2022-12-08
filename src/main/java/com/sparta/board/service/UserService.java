@@ -1,12 +1,14 @@
 package com.sparta.board.service;
 
 import com.sparta.board.dto.LoginRequestDto;
+import com.sparta.board.dto.MsgResponseDto;
 import com.sparta.board.dto.SignupRequestDto;
 import com.sparta.board.entity.User;
 import com.sparta.board.jwt.JwtUtil;
 import com.sparta.board.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,7 @@ public class UserService {
     //회원가입
     @Transactional
 
-    public void signup(SignupRequestDto signupRequestDto) {
+    public MsgResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
 
@@ -54,10 +56,12 @@ public class UserService {
 
         User user = new User(username, password);
         userRepository.save(user);
+
+        return new MsgResponseDto("회원가입성공", HttpStatus.OK.value());
     }
 
     @Transactional(readOnly = true)
-    public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public MsgResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
         //사용자확인
@@ -69,5 +73,7 @@ public class UserService {
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));
+
+        return new MsgResponseDto("로그인성공", HttpStatus.OK.value());
     }
 }
