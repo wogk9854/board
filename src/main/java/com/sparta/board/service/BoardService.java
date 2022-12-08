@@ -183,7 +183,7 @@ public class BoardService {
     }
 
     //삭제
-    public MsgResponseDto deleteBoard(Long id, BoardRequestDto requestDto, HttpServletRequest request) {
+    public MsgResponseDto deleteBoard(Long id, HttpServletRequest request) {
         // Request에서 Token 가져오기
         String token = jwtUtil.resolveToken(request);
         Claims claims;
@@ -215,21 +215,6 @@ public class BoardService {
         } else {
             throw new IllegalArgumentException("토큰이없습니다.");
         }
-
-//        Board board = boardRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("아이디가 없습니다.")
-//        );
-//        boolean result = requestDto.getPassword().equals(board.getPassword());
-//        System.out.println(result);
-//        String re = "";
-//        if (result) {
-//            boardRepository.deleteById(id);
-//            re = "삭제완료";
-//        } else {
-//            System.out.println("비밀번호가일치하지않습니다.");
-//            re = "비밀번호가일치하지않습니다.";
-//        }
-
     }
 
 
