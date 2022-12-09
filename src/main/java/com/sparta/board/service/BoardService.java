@@ -37,31 +37,6 @@ public class BoardService {
         );
         return new BoardResponseDto(board);
     }
-//    @Transactional(readOnly = true)
-//    public BoardResponseDto detailBoard(Long id, HttpServletRequest request) {
-//        // Request에서 Token 가져오기
-//        String token = jwtUtil.resolveToken(request);
-//        Claims claims;
-//
-//        // 토큰이 있는 경우에만 관심상품 조회 가능
-//        if (token != null) {
-//            // Token 검증
-//            if (jwtUtil.validateToken(token)) {
-//                // 토큰에서 사용자 정보 가져오기
-//                claims = jwtUtil.getUserInfoFromToken(token);
-//            } else {
-//                throw new IllegalArgumentException("Token Error");
-//            }
-//
-//            Board board = boardRepository.findById(id).orElseThrow(
-//                    () -> new IllegalArgumentException("없는글번호입니다.")
-//            );
-//            return new BoardResponseDto(board);
-//
-//        } else {
-//            throw new IllegalArgumentException("토큰이없습니다.");
-//        }
-//    }
 
 
         //전체글조회
@@ -76,30 +51,6 @@ public class BoardService {
         return boards.stream().map(b -> new BoardResponseDto(b)).collect(Collectors.toList());
     }
 
-
-//    @Transactional(readOnly = true)
-//    public List<BoardResponseDto> readBoard() {
-//
-//            List<BoardResponseDto> list = new ArrayList<>();
-//            List<Board> boardList;
-//
-//            boardList = boardRepository.findAllByUserIdOrderByCreatedAtDesc(user.getId());
-//
-//            for (Board board : boardList) {
-//                list.add(new BoardResponseDto(board));
-//            }
-//
-//
-//    }
-
-
-    //작성
-//    @Transactional
-//    public BoardResponseDto createBoard(BoardRequestDto requestDto) {
-//        Board board = new Board(requestDto);
-//        boardRepository.save(board);
-//        return new BoardResponseDto(board);
-//    }
     @Transactional
     public BoardResponseDto createBoard(BoardRequestDto requestDto, HttpServletRequest request) {
         // Request에서 Token 가져오기
@@ -169,17 +120,6 @@ public class BoardService {
             throw new IllegalArgumentException("토큰이없습니다.");
         }
 
-//        Board board = boardRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("아이디가 없습니다.")
-//        );
-//        boolean result = requestDto.getPassword().equals(board.getPassword());
-//        System.out.println(result);
-//        if (result) {
-//            board.update(requestDto);
-//        } else {
-//            System.out.println("비밀번호가일치하지않습니다.");
-//        }
-//        return new BoardResponseDto(board);
     }
 
     //삭제
