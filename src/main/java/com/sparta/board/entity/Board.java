@@ -1,9 +1,10 @@
 package com.sparta.board.entity;
 
 import com.sparta.board.dto.BoardRequestDto;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 
 @Entity
