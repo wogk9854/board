@@ -9,6 +9,7 @@ import com.sparta.board.jwt.JwtUtil;
 import com.sparta.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +25,7 @@ public class UserService {
 
     private final JwtUtil jwtUtil;
 
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
 
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
@@ -51,12 +52,12 @@ public class UserService {
         }
 
         //비밀번호유효성검사
-        if (Pattern.matches( "^[a-zA-Z0-9]*$",password)){
+        if (Pattern.matches( "^.(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$",password)){
             if(password.length() < 8 || password.length() > 15){
                 throw new IllegalArgumentException("비밀번호 길이를 8자 이상 15자 이하로 해주세요");
             }
         } else {
-            throw new IllegalArgumentException("비밀번호를 알파벳대소문자 또는 숫자로만 구성해주세요");
+            throw new IllegalArgumentException("비밀번호에 알파벳대소문자, 숫자, 특수문자가 포함되게 해주세요");
         }
         // 사용자 ROLE 확인
         UserRoleEnum role = UserRoleEnum.USER;
@@ -67,8 +68,8 @@ public class UserService {
             role = UserRoleEnum.ADMIN;
         }
 
-//        //pw암호화
-//        password = passwordEncoder.encode(password);
+        //pw암호화
+        password = passwordEncoder.encode(password);
 
 
         User user = new User(username, password, role);
@@ -85,7 +86,7 @@ public class UserService {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("등록된 아이디가 아닙니다.")
         );
-        if(!user.getPassword().equals(password)){
+        if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호를 확인해주세요");
         }
 
