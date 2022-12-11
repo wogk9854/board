@@ -4,6 +4,7 @@ import com.sparta.board.dto.LoginRequestDto;
 import com.sparta.board.dto.MsgResponseDto;
 import com.sparta.board.dto.SignupRequestDto;
 import com.sparta.board.entity.User;
+import com.sparta.board.entity.UserRoleEnum;
 import com.sparta.board.jwt.JwtUtil;
 import com.sparta.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,11 @@ public class UserService {
     private final UserRepository userRepository;
 
     private final JwtUtil jwtUtil;
+
+//    private final PasswordEncoder passwordEncoder;
+
+
+    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     //회원가입
     @Transactional
@@ -52,8 +58,20 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("비밀번호를 알파벳대소문자 또는 숫자로만 구성해주세요");
         }
+        // 사용자 ROLE 확인
+        UserRoleEnum role = UserRoleEnum.USER;
+        if (signupRequestDto.isAdmin()) {
+            if (!signupRequestDto.getAdminToken().equals(ADMIN_TOKEN)) {
+                throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
+            }
+            role = UserRoleEnum.ADMIN;
+        }
 
-        User user = new User(username, password);
+//        //pw암호화
+//        password = passwordEncoder.encode(password);
+
+
+        User user = new User(username, password, role);
         userRepository.save(user);
 
         return new MsgResponseDto("회원가입성공", HttpStatus.OK.value());
@@ -71,7 +89,7 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호를 확인해주세요");
         }
 
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
 
         return new MsgResponseDto("로그인성공", HttpStatus.OK.value());
     }
