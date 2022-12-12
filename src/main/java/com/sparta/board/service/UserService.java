@@ -4,10 +4,12 @@ import com.sparta.board.dto.LoginRequestDto;
 import com.sparta.board.dto.MsgResponseDto;
 import com.sparta.board.dto.SignupRequestDto;
 import com.sparta.board.entity.User;
+import com.sparta.board.entity.UserRoleEnum;
 import com.sparta.board.jwt.JwtUtil;
 import com.sparta.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +25,15 @@ public class UserService {
 
     private final JwtUtil jwtUtil;
 
+    //패스워드 인코드 및 어드민 토큰 추가
+    private final PasswordEncoder passwordEncoder;
+    private static String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+
     //회원가입
     @Transactional
     public MsgResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
-        String password = signupRequestDto.getPassword();
+        String password = signupRequestDto.getPassword();//pw 인코딩 - 성현
 
         //아이디유효성검사
         if (Pattern.matches( "^[a-z0-9]*$",username)){
@@ -45,15 +51,26 @@ public class UserService {
         }
 
         //비밀번호유효성검사
-        if (Pattern.matches( "^[a-zA-Z0-9]*$",password)){
-            if(password.length() < 8 || password.length() > 15){
+        if (Pattern.matches( "^[a-zA-Z0-9]*$",password)) {
+            if (password.length() < 8 || password.length() > 15) {
                 throw new IllegalArgumentException("비밀번호 길이를 8자 이상 15자 이하로 해주세요");
             }
         } else {
             throw new IllegalArgumentException("비밀번호를 알파벳대소문자 또는 숫자로만 구성해주세요");
         }
+        // 사용자 ROLE 확인
+        UserRoleEnum role = UserRoleEnum.USER;
+        if (signupRequestDto.isAdmin()) {
+            if (!signupRequestDto.getAdminToken().equals(ADMIN_TOKEN)) {
+                throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
+            }
+            role = UserRoleEnum.ADMIN;
+        }
 
-        User user = new User(username, password);
+        //pw암호화
+        password = passwordEncoder.encode(password);
+
+        User user = new User(username, password, role);
         userRepository.save(user);
 
         return new MsgResponseDto("회원가입성공", HttpStatus.OK.value());
@@ -67,7 +84,9 @@ public class UserService {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("등록된 아이디가 아닙니다.")
         );
-        if(!user.getPassword().equals(password)){
+
+        //pw 확인 - 성현
+        if(!passwordEncoder.matches(password, user.getPassword())){ //pw 인코딩 - 성현
             throw new IllegalArgumentException("비밀번호를 확인해주세요");
         }
 
@@ -76,14 +95,7 @@ public class UserService {
         return new MsgResponseDto("로그인성공", HttpStatus.OK.value());
     }
 
-
-
-
-
-
-
 }
-
 
 
 

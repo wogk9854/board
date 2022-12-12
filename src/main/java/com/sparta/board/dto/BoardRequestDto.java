@@ -11,6 +11,8 @@ import lombok.Setter;
 public class BoardRequestDto {
     private String title;
     private String content;
+    private boolean admin = false;
+    private String adminToken = "";
 
 
 
