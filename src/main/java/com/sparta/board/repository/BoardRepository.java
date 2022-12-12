@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 //    List<Board> findAllByOrderByModifiedAtDesc();
-
+    Board deleteAllBy();
     List<Board> findAllByOrderByCreatedAtDesc();
 //    Optional<Board> findByUsernameOrderByModifiedAtDesc(String username);
 //

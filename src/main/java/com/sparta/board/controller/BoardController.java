@@ -5,6 +5,7 @@ import com.sparta.board.dto.BoardResponseDto;
 import com.sparta.board.dto.MsgResponseDto;
 
 import com.sparta.board.repository.BoardRepository;
+import com.sparta.board.entity.User;
 
 import com.sparta.board.security.UserDetailsImpl;
 import com.sparta.board.service.BoardService;
@@ -67,7 +68,7 @@ public class BoardController {
 
 
     @DeleteMapping("/delete/{id}")
-    public MsgResponseDto deleteBoard(@PathVariable Long id, HttpServletRequest request) {
-        return boardService.deleteBoard(id, request);
+    public MsgResponseDto deleteBoard(@PathVariable  Long id, @AuthenticationPrincipal UserDetailsImpl userDetails ) {
+        return boardService.deleteBoard(id,userDetails.getUser());
     }
 }
