@@ -34,7 +34,7 @@ public class UserService {
     @Transactional
     public MsgResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
-        String password = passwordEncoder.encode(signupRequestDto.getPassword());//pw 인코딩 - 성현
+        String password = signupRequestDto.getPassword();//pw 인코딩 - 성현
 
         //아이디유효성검사
         if (Pattern.matches( "^[a-z0-9]*$",username)){
