@@ -2,8 +2,10 @@ package com.sparta.board.config;
 
 
 
+
 import com.sparta.board.jwt.JwtUtil;
 import com.sparta.board.jwt.JwtAuthFilter;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -27,8 +29,10 @@ public class WebSecurityConfig {
 
     private final JwtUtil jwtUtil;
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
@@ -50,17 +54,17 @@ public class WebSecurityConfig {
 
         http.authorizeRequests().antMatchers("/api/user/**").permitAll()
 
+
                 .antMatchers("/api/board/**").permitAll()
                 .antMatchers("/api/detail/**").permitAll()
+
+
                 .anyRequest().authenticated()
                 // JWT 인증/인가를 사용하기 위한 설정
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
 
 
-//        http.formLogin().loginPage("/api/user/login-page").permitAll();
-
-//        http.exceptionHandling().accessDeniedPage("/api/user/forbidden");
 
         http.formLogin().loginPage("/api/user/login-page").permitAll();
 

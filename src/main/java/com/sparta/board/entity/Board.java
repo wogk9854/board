@@ -33,7 +33,12 @@ public class Board extends Timestamped {
         this.user = user;
     }
 
-    public void update(BoardRequestDto requestDto) {
+    public Board(String title, String content, UserRoleEnum role) {
+        super();
+    }
+
+
+    public void update(BoardRequestDto requestDto){
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }

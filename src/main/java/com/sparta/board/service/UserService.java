@@ -26,16 +26,18 @@ public class UserService {
     private final JwtUtil jwtUtil;
 
 
+
     private final PasswordEncoder passwordEncoder;//pw 인코딩 - 성현
 
     // ADMIN_TOKEN
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
+
     //회원가입
     @Transactional
     public MsgResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
-        String password = signupRequestDto.getPassword();
+        String password = signupRequestDto.getPassword();//pw 인코딩 - 성현
 
         //아이디유효성검사
         if (Pattern.matches( "^[a-z0-9]*$",username)){
@@ -89,7 +91,9 @@ public class UserService {
                 () -> new IllegalArgumentException("등록된 아이디가 아닙니다.")
         );
 
+
         if(!passwordEncoder.matches(password, user.getPassword())){
+
             throw new IllegalArgumentException("비밀번호를 확인해주세요");
         }
 
@@ -99,13 +103,6 @@ public class UserService {
     }
 
 }
-
-
-
-
-
-
-
 
 
 
