@@ -55,9 +55,9 @@ public class UserService {
         if (Pattern.matches( "^[a-zA-Z0-9]*$",password)) {
             if (password.length() < 8 || password.length() > 15) {
                 throw new IllegalArgumentException("비밀번호 길이를 8자 이상 15자 이하로 해주세요");
-            } else {
-                throw new IllegalArgumentException("비밀번호를 알파벳대소문자 또는 숫자로만 구성해주세요");
             }
+            } else {
+            throw new IllegalArgumentException("비밀번호를 알파벳대소문자 또는 숫자로만 구성해주세요");
         }
         // 사용자 ROLE 확인
         UserRoleEnum role = UserRoleEnum.USER;
