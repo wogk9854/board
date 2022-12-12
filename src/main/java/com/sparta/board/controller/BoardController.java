@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -42,27 +44,27 @@ public class BoardController {
 //    }
 
     //조회하기
-    @GetMapping("/board")
-    public List<BoardResponseDto> readBoard() {
-        // 응답 보내기
-        return boardService.readBoard();
-    }
+//    @GetMapping("/board")
+//    public List<BoardResponseDto> readBoard() {
+//        // 응답 보내기
+//        return boardService.readBoard();
+//    }
 
     //상세조회
-    @GetMapping("/detail/{id}")
-    public BoardResponseDto detailBoard(@PathVariable Long id) {
-
-        return boardService.detailBoard(id);
-    }
+//    @GetMapping("/detail/{id}")
+//    public BoardResponseDto detailBoard(@PathVariable Long id) {
+//
+//        return boardService.detailBoard(id);
+//    }
 
 
 
 
     //수정
-    @PutMapping("/update/{id}")
-    public BoardResponseDto update(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest request) {
-        return boardService.update(id, requestDto, request);
-    }
+//    @PutMapping("/update/{id}")
+//    public BoardResponseDto update(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest request) {
+//        return boardService.update(id, requestDto, request);
+//    }
 
     //삭제
     @DeleteMapping("/delete/{id}")
