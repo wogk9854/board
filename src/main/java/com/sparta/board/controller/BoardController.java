@@ -6,6 +6,7 @@ import com.sparta.board.dto.MsgResponseDto;
 import com.sparta.board.security.UserDetailsImpl;
 import com.sparta.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class BoardController {
 
     //수정
     @PutMapping("/update/{id}")
-    public BoardResponseDto update(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return boardService.update(id, requestDto, userDetails.getUser());
     }
 

@@ -1,8 +1,8 @@
 package com.sparta.board.config;
 
 
+import com.sparta.board.jwt.JwtAuthFilter;
 import com.sparta.board.jwt.JwtUtil;
-import com.sparta.myselectshop.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

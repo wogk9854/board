@@ -1,8 +1,7 @@
-package com.sparta.myselectshop.jwt;
+package com.sparta.board.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.board.dto.SecurityExceptionDto;
-import com.sparta.board.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if(token != null) {
             if(!jwtUtil.validateToken(token)){
-                jwtExceptionHandler(response, "Token Error", HttpStatus.UNAUTHORIZED.value());
+                jwtExceptionHandler(response, "토큰잘못됨", HttpStatus.BAD_REQUEST.value());
                 return;
             }
             Claims info = jwtUtil.getUserInfoFromToken(token);
