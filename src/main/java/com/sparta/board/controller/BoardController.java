@@ -20,6 +20,8 @@ public class BoardController {
 
 
 
+
+
 //    //생성
 //    @PostMapping("/board")
 //    public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto) {
