@@ -25,33 +25,13 @@ public class UserService {
 
     private final JwtUtil jwtUtil;
 
-    // 패스워드인코더 및 어드민 토큰 추가 - 상정
-    private final PasswordEncoder passwordEncoder;
+
+    private final PasswordEncoder passwordEncoder;//pw 인코딩 - 성현
+
+    // ADMIN_TOKEN
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
-
-    @Transactional(readOnly = true)
-    public MsgResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
-        String username = loginRequestDto.getUsername();
-        String password = loginRequestDto.getPassword();
-        System.out.println(password);
-        //사용자확인
-        User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("등록된 아이디가 아닙니다.")
-        );
-        if(!passwordEncoder.matches(password, user.getPassword())){
-            throw new IllegalArgumentException("비밀번호를 확인해주세요");
-        }
-
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));
-
-        return new MsgResponseDto("로그인성공", HttpStatus.OK.value());
-    }
-
-
-
     //회원가입
-    // 롤 추가 - 상정
     @Transactional
     public MsgResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
@@ -60,30 +40,26 @@ public class UserService {
         //아이디유효성검사
         if (Pattern.matches( "^[a-z0-9]*$",username)){
             if(username.length() < 4 || username.length() > 10){
-//                throw new IllegalArgumentException("아이디 길이를 4자 이상 10자 이하로 해주세요");
-                return new MsgResponseDto("아이디 길이를 4자 이상 10자 이하로 해주세요", HttpStatus.BAD_REQUEST.value());
+                throw new IllegalArgumentException("아이디 길이를 4자 이상 10자 이하로 해주세요");
             }
 
             //중복확인
             Optional<User> found = userRepository.findByUsername(username);
             if (found.isPresent()){
-                return new MsgResponseDto("중복된 아이디입니다.", HttpStatus.BAD_REQUEST.value());
-
+                throw new IllegalArgumentException("중복된 아이디입니다.");
             }
         }else{
-            return new MsgResponseDto("아이디를 알파벳소문자 또는 숫자로만 구성해주세요", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("아이디를 알파벳소문자 또는 숫자로만 구성해주세요");
         }
 
         //비밀번호유효성검사
-        if (Pattern.matches( "^.(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$",password)){
-            if(password.length() < 8 || password.length() > 15){
-                return new MsgResponseDto("비밀번호 길이를 8자 이상 15자 이하로 해주세요", HttpStatus.BAD_REQUEST.value());
+        if (Pattern.matches( "^[a-zA-Z0-9]*$",password)) {
+            if (password.length() < 8 || password.length() > 15) {
+                throw new IllegalArgumentException("비밀번호 길이를 8자 이상 15자 이하로 해주세요");
             }
-        } else {
-            return new MsgResponseDto("비밀번호에 알파벳대소문자, 숫자, 특수문자가 포함되게 해주세요", HttpStatus.BAD_REQUEST.value());
-
+            } else {
+            throw new IllegalArgumentException("비밀번호를 알파벳대소문자 또는 숫자로만 구성해주세요");
         }
-
         // 사용자 ROLE 확인
         UserRoleEnum role = UserRoleEnum.USER;
         if (signupRequestDto.isAdmin()) {
@@ -96,7 +72,6 @@ public class UserService {
         //pw암호화
         password = passwordEncoder.encode(password);
 
-
         User user = new User(username, password, role);
         userRepository.save(user);
 
@@ -104,8 +79,32 @@ public class UserService {
     }
 
 
+    @Transactional(readOnly = true)
+    public MsgResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        String username = loginRequestDto.getUsername();
+        String password = loginRequestDto.getPassword();
+        System.out.println(password);
+        //사용자확인
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new IllegalArgumentException("등록된 아이디가 아닙니다.")
+        );
+
+        if(!passwordEncoder.matches(password, user.getPassword())){
+            throw new IllegalArgumentException("비밀번호를 확인해주세요");
+        }
+
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));
+
+        return new MsgResponseDto("로그인성공", HttpStatus.OK.value());
+    }
 
 }
+
+
+
+
+
+
 
 
 

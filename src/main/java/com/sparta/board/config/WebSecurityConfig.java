@@ -1,8 +1,10 @@
 package com.sparta.board.config;
 
 
+
 import com.sparta.board.jwt.JwtUtil;
 import com.sparta.board.jwt.JwtAuthFilter;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -47,6 +49,7 @@ public class WebSecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests().antMatchers("/api/user/**").permitAll()
+
                 .antMatchers("/api/board/**").permitAll()
                 .antMatchers("/api/detail/**").permitAll()
                 .anyRequest().authenticated()
@@ -54,9 +57,15 @@ public class WebSecurityConfig {
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
 
+
 //        http.formLogin().loginPage("/api/user/login-page").permitAll();
 
 //        http.exceptionHandling().accessDeniedPage("/api/user/forbidden");
+
+        http.formLogin().loginPage("/api/user/login-page").permitAll();
+
+        http.exceptionHandling().accessDeniedPage("/api/user/forbidden");
+
 
         return http.build();
     }

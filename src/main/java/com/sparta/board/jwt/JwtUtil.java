@@ -29,7 +29,7 @@ public class JwtUtil {
     private static final String BEARER_PREFIX = "Bearer ";
     private static final long TOKEN_TIME = 60 * 60 * 1000L;
 
-    // 유저디테일 추가 - 상정
+
     private final UserDetailsServiceImpl userDetailsService;
 
     @Value("${jwt.secret.key}")
@@ -86,6 +86,7 @@ public class JwtUtil {
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
+
 
 
     public Authentication createAuthentication(String username) {
