@@ -23,9 +23,7 @@ public class UserController {
     // 반환타입을 변경,
     @PostMapping("/signup")
     public MsgResponseDto signup(@RequestBody SignupRequestDto signupRequestDto){
-        userService.signup(signupRequestDto);
-        MsgResponseDto msgResponseDto = new MsgResponseDto("회원가입 완료", 200);
-        return msgResponseDto;
+        return userService.signup(signupRequestDto);
     }
 //    @PostMapping("/signup")
 //    public String signup(@RequestBody SignupRequestDto signupRequestDto){
