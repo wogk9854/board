@@ -17,11 +17,6 @@ public class BoardController {
     private final BoardService boardService;
 
 
-
-
-
-
-
 //    //생성
 //    @PostMapping("/board")
 //    public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto) {
