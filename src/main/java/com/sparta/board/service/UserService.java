@@ -34,11 +34,12 @@ public class UserService {
     public MsgResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
+        System.out.println(password);
         //사용자확인
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("등록된 아이디가 아닙니다.")
         );
-        if(!user.getPassword().equals(password)){
+        if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호를 확인해주세요");
         }
 
@@ -51,7 +52,6 @@ public class UserService {
 
     //회원가입
     // 롤 추가 - 상정
-
     @Transactional
     public void signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
