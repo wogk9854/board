@@ -1,16 +1,11 @@
 package com.sparta.board.security;
 
-
-
-
 import com.sparta.board.entity.User;
-//import com.sparta.board.entity.UserRoleEnum;
-
+import com.sparta.board.entity.User;
 import com.sparta.board.entity.UserRoleEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,23 +14,18 @@ public class UserDetailsImpl implements UserDetails {
     private final User user;
     private final String username;
 
-
     public UserDetailsImpl(User user, String username) {
         this.user = user;
         this.username = username;
     }
 
     public User getUser() {
-
         return user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-
         UserRoleEnum role = user.getRole();
-
 
         String authority = role.getAuthority();
 

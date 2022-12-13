@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -21,11 +22,13 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String content;
 
-
-    //한유저가 여러글을쓸수있다 ManyToOne??
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)//게시글삭제되면댓글도삭제
+    @OrderBy("id asc")
+    List<Comment> comments;
 
     public Board(BoardRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
@@ -33,12 +36,7 @@ public class Board extends Timestamped {
         this.user = user;
     }
 
-    public Board(String title, String content, UserRoleEnum role) {
-        super();
-    }
-
-
-    public void update(BoardRequestDto requestDto){
+    public void update(BoardRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
