@@ -21,9 +21,7 @@ public class UserController {
     @PostMapping("/signup")
     public MsgResponseDto signup(@RequestBody SignupRequestDto signupRequestDto) {
 
-        userService.signup(signupRequestDto);
-        MsgResponseDto msgResponseDto = new MsgResponseDto("회원가입 완료", 200);
-        return msgResponseDto;
+       return userService.signup(signupRequestDto);
     }
 
     @PostMapping("/login")

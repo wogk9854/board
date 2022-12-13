@@ -1,7 +1,7 @@
 package com.sparta.board.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.board.security.UserDetailsServiceImpl;
+
 import com.sparta.board.dto.SecurityExceptionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

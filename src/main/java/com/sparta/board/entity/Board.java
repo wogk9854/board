@@ -22,6 +22,10 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private int boardLike;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -39,5 +43,13 @@ public class Board extends Timestamped {
     public void update(BoardRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+    }
+
+    public void like() {
+        this.boardLike +=1;
+    }
+
+    public void dislike() {
+        this.boardLike -=1;
     }
 }

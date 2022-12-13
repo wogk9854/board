@@ -7,13 +7,12 @@ import com.sparta.board.dto.MsgResponseDto;
 import com.sparta.board.entity.Board;
 import com.sparta.board.entity.User;
 import com.sparta.board.entity.UserRoleEnum;
-import com.sparta.board.jwt.JwtUtil;
+
 import com.sparta.board.repository.BoardRepository;
-import com.sparta.board.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,9 +27,6 @@ public class BoardService {
 
 
     private final BoardRepository boardRepository;
-
-    private final UserRepository userRepository;
-
 
 
     private static String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";

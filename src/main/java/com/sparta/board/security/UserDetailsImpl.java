@@ -1,7 +1,7 @@
 package com.sparta.board.security;
 
 import com.sparta.board.entity.User;
-import com.sparta.board.entity.User;
+
 import com.sparta.board.entity.UserRoleEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

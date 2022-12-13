@@ -87,13 +87,13 @@ public class UserService {
         //사용자확인
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("등록된 아이디가 아닙니다.")
-                //            return new MsgResponseDto("등록된 아이디가 아닙니다.", HttpStatus.BAD_REQUEST.value());
+
         );
 
         if(!passwordEncoder.matches(password, user.getPassword())){
 
             throw new IllegalArgumentException("비밀번호를 확인해주세요");
-//            return new MsgResponseDto("비밀번호를 확인해주세요", HttpStatus.BAD_REQUEST.value());
+
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));

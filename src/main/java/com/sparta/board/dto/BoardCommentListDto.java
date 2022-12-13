@@ -21,6 +21,9 @@ public class BoardCommentListDto {
 
     private LocalDateTime modifiedAt;
 
+    private int boardLike;
+
+
     private List<CommentResponseDto> comments;
 
     public BoardCommentListDto(Board board){
@@ -31,7 +34,6 @@ public class BoardCommentListDto {
         this.createdAt = board.getCreatedAt();
         this.modifiedAt = board.getModifiedAt();
         this.comments = board.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
-
+        this.boardLike = board.getBoardLike();
     }
-
 }

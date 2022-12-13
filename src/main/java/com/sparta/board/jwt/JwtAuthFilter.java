@@ -2,8 +2,6 @@ package com.sparta.board.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.board.dto.SecurityExceptionDto;
-import com.sparta.board.jwt.JwtUtil;
-import com.sparta.board.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
