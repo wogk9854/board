@@ -1,5 +1,6 @@
 package com.sparta.board.service;
 
+import com.sparta.board.dto.BoardCommentListDto;
 import com.sparta.board.dto.BoardRequestDto;
 import com.sparta.board.dto.BoardResponseDto;
 import com.sparta.board.dto.MsgResponseDto;
@@ -37,18 +38,14 @@ public class BoardService {
 
     //전체글조회
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> readBoard() {
+    public List<BoardCommentListDto> readBoard() {
         List<Board> boards = boardRepository.findAllByOrderByCreatedAtDesc();
-        return boards.stream().map(b -> new BoardResponseDto(b)).collect(Collectors.toList());
+        return boards.stream().map(b -> new BoardCommentListDto(b)).collect(Collectors.toList());
     }
 
     //작성
     @Transactional
     public BoardResponseDto createBoard(BoardRequestDto requestDto, User user) {
-//       if(user == null){
-//
-//       }
-        // 요청받은 DTO 로 DB에 저장할 객체 만들기
         Board board = boardRepository.saveAndFlush(new Board(requestDto, user));
         return new BoardResponseDto(board);
     }

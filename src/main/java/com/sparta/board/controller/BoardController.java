@@ -1,5 +1,6 @@
 package com.sparta.board.controller;
 
+import com.sparta.board.dto.BoardCommentListDto;
 import com.sparta.board.dto.BoardRequestDto;
 import com.sparta.board.dto.BoardResponseDto;
 import com.sparta.board.dto.MsgResponseDto;
@@ -27,7 +28,7 @@ public class BoardController {
 
     //조회하기
     @GetMapping("/board")
-    public List<BoardResponseDto> readBoard() {
+    public List<BoardCommentListDto> readBoard() {
         // 응답 보내기
         return boardService.readBoard();
     }
