@@ -36,13 +36,11 @@ public class LikeService {
             if((boardLike.getLikeCheck() % 2) == 1){
                 boardLike.update();
                 board.likeCancel();
-                boardLikeRepository.save(boardLike);
                 return new MsgResponseDto("좋아요 취소", HttpStatus.OK.value());
             }
             else{
                 board.like();
                 boardLike.update();
-                boardLikeRepository.save(boardLike);
                 return new MsgResponseDto("좋아요", HttpStatus.OK.value());
             }
         }
