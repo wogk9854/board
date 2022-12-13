@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,6 +23,13 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String content;
 
+    @Column
+    private int likeCount;
+
+
+    @OneToMany(mappedBy = "board")
+    private List<BoardLike> boardLikes = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -36,12 +44,18 @@ public class Board extends Timestamped {
         this.user = user;
     }
 
-//    public Board(List<Comment> comments) {
-//        this.comments = comments;
-//    }
 
     public void update(BoardRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+    }
+
+
+    public void likeCancel() {
+        this.likeCount += -1;
+    }
+
+    public void like() {
+        this.likeCount += 1;
     }
 }

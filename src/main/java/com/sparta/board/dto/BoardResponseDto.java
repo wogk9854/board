@@ -14,6 +14,7 @@ public class BoardResponseDto{
     private String title;
     private String username;
     private String content;
+    private int likeCount;
     private LocalDateTime CreatedAt;
     private LocalDateTime ModifiedAt;
 
@@ -21,6 +22,7 @@ public class BoardResponseDto{
         this.title = board.getTitle();
         this.username = board.getUser().getUsername();
         this.content = board.getContent();
+        this.likeCount = board.getLikeCount();
         this.CreatedAt = board.getCreatedAt();
         this.ModifiedAt = board.getModifiedAt();
     }

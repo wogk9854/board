@@ -17,6 +17,8 @@ public class BoardCommentListDto {
 
     private String content;
 
+    private int likeCount;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;
@@ -28,6 +30,7 @@ public class BoardCommentListDto {
         this.username = board.getUser().getUsername();
         this.title = board.getTitle();
         this.content = board.getContent();
+        this.likeCount = board.getLikeCount();
         this.createdAt = board.getCreatedAt();
         this.modifiedAt = board.getModifiedAt();
         this.comments = board.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
