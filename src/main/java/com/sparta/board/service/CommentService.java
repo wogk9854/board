@@ -24,15 +24,13 @@ public class CommentService {
 
     //작성
     @Transactional
-    public CommentResponseDto createComment(Long id, CommentRequestDto requestDto, User user) {
+    public void createComment(Long id, CommentRequestDto requestDto, User user) {
             Board board = boardRepository.findById(id).orElseThrow(
                     () -> new IllegalArgumentException("없는글번호입니다.")
             );
             Comment save = new Comment(user, board, requestDto);
 
             Comment comment = commentRepository.saveAndFlush(save);
-
-            return new CommentResponseDto(comment);
 
     }
     //수정

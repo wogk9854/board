@@ -19,8 +19,9 @@ public class CommentController {
 
     //작성
     @PostMapping("/comment/{id}")
-    public CommentResponseDto createComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return commentService.createComment(id, requestDto, userDetails.getUser());
+    public String createComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        commentService.createComment(id, requestDto, userDetails.getUser());
+        return "성공";
     }
     //수정
     @PutMapping("comment/{id}")

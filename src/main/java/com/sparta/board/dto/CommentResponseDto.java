@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class CommentResponseDto {
     private int commentLike;
     private LocalDateTime CreatedAt;
     private LocalDateTime ModifiedAt;
+    private List<ReCommentResponseDto> comments;
 
 
     public CommentResponseDto(Comment comment){
@@ -24,8 +27,7 @@ public class CommentResponseDto {
         this.commentLike = comment.getCommentLike();
         this.CreatedAt = comment.getCreatedAt();
         this.ModifiedAt = comment.getModifiedAt();
+        this.comments = comment.getReComments().stream().map(ReCommentResponseDto::new).collect(Collectors.toList());
+
     }
-
-
-
 }
