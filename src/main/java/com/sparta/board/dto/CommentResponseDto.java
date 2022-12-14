@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -16,6 +17,8 @@ public class CommentResponseDto {
     private int commentLike;
     private LocalDateTime CreatedAt;
     private LocalDateTime ModifiedAt;
+
+
 
 
     public CommentResponseDto(Comment comment){
