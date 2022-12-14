@@ -26,6 +26,7 @@ public class BoardCommentListDto {
 
     private List<CommentResponseDto> comments;
 
+
     public BoardCommentListDto(Board board){
         this.id = board.getId();
         this.username = board.getUser().getUsername();

@@ -46,6 +46,7 @@ public class BoardService {
     @Transactional(readOnly = true)
     public List<BoardCommentListDto> readBoard() {
         List<Board> boards = boardRepository.findAllByOrderByCreatedAtDesc();
+
         return boards.stream().map(b -> new BoardCommentListDto(b)).collect(Collectors.toList());
     }
 
