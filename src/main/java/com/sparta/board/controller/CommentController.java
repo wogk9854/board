@@ -32,6 +32,10 @@ public class CommentController {
     public MsgResponseDto deleteComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.deleteComment(id, userDetails.getUser());
     }
+    @PostMapping("/comment/{id}/{id2}")
+    public CommentResponseDto recreateComment(@PathVariable Long id, @PathVariable Long id2, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return commentService.recreateComment(id, id2, requestDto, userDetails.getUser());
+    }
 
 
 }

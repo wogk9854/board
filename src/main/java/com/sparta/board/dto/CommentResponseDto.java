@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -17,6 +19,10 @@ public class CommentResponseDto {
     private LocalDateTime CreatedAt;
     private LocalDateTime ModifiedAt;
 
+    private String aa;
+
+    private List<String> aaa;
+
 
     public CommentResponseDto(Comment comment){
         this.username = comment.getUser().getUsername();
@@ -24,6 +30,7 @@ public class CommentResponseDto {
         this.commentLike = comment.getCommentLike();
         this.CreatedAt = comment.getCreatedAt();
         this.ModifiedAt = comment.getModifiedAt();
+        this.aaa = Collections.singletonList("aa");
     }
 
 

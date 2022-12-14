@@ -68,4 +68,17 @@ public class CommentService {
         }
         return new MsgResponseDto("댓글삭제완료", HttpStatus.OK.value());
     }
+
+    public CommentResponseDto recreateComment(Long id, Long id2, CommentRequestDto requestDto, User user) {
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("없는글번호입니다.")
+        );//게시글찾고
+        Comment comment = commentRepository.findById(id2).orElseThrow(
+                ()-> new IllegalArgumentException("없는댓글번호입니다.")
+        );//댓글찾고
+
+        Comment save = new Comment(user, board, requestDto, comment);
+        Comment comment1 = commentRepository.saveAndFlush(save);
+        return new CommentResponseDto(comment1);
+    }
 }

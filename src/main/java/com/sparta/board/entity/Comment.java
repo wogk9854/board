@@ -20,6 +20,10 @@ public class Comment extends Timestamped{
     @Column(nullable = false)
     private int commentLike;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Comment parent;
+
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
@@ -31,6 +35,14 @@ public class Comment extends Timestamped{
         this.user = user;
         this.board = board;
         this.content = requestDto.getContent();
+    }
+
+    public Comment(User user, Board board, CommentRequestDto requestDto, Comment comment) {
+        this.user = user;
+        this.board = board;
+        this.content = requestDto.getContent();
+        this.parent = comment;
+        //이렇게해주면
     }
 
     public void update(CommentRequestDto requestDto) {
