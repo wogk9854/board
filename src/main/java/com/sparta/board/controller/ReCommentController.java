@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ReCommentController {
 
-    private final ReCommentService reCommentService;
+    private final ReCommentService reCommentService; 
 
     //작성
     @PostMapping("/recomment/{id}")
