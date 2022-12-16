@@ -23,7 +23,6 @@ public class BoardCommentListDto {
 
     private int boardLike;
 
-
     private List<CommentResponseDto> comments;
 
 
