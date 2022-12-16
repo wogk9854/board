@@ -28,5 +28,4 @@ public class LikeController {
     public MsgResponseDto likeComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentLikeService.likeComment(id, userDetails.getUser());
     }
-
 }

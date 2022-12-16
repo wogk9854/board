@@ -1,14 +1,10 @@
 package com.sparta.board.dto;
 
-import com.sparta.board.entity.Board;
 import com.sparta.board.entity.Comment;
-import com.sparta.board.entity.ReComment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor

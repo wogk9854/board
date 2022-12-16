@@ -18,6 +18,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    //회원탈퇴
+    @Column(nullable = false)
+    private boolean deleted = Boolean.FALSE; //삭제여부 기본값 false
+
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;

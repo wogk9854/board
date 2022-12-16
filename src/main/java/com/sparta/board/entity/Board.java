@@ -30,7 +30,7 @@ public class Board extends Timestamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)//게시글삭제되면댓글도삭제
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)//게시글삭제되면댓글도삭제
     @OrderBy("id asc")
     List<Comment> comments;
 

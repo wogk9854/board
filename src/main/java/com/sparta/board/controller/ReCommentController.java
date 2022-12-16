@@ -1,11 +1,10 @@
 package com.sparta.board.controller;
 
-import com.sparta.board.dto.*;
+import com.sparta.board.dto.ReCommentRequestDto;
+import com.sparta.board.dto.ReCommentResponseDto;
 import com.sparta.board.security.UserDetailsImpl;
-import com.sparta.board.service.CommentService;
 import com.sparta.board.service.ReCommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 

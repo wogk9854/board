@@ -4,19 +4,13 @@ import com.sparta.board.dto.BoardCommentListDto;
 import com.sparta.board.dto.BoardRequestDto;
 import com.sparta.board.dto.BoardResponseDto;
 import com.sparta.board.dto.MsgResponseDto;
-import com.sparta.board.repository.BoardRepository;
-import com.sparta.board.entity.User;
-import com.sparta.board.security.UserDetailsImpl;
-import com.sparta.board.service.BoardService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.sparta.board.security.UserDetailsImpl;
 import com.sparta.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -25,11 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-    private final BoardRepository boardRepository;
-
-
-
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     //글작성

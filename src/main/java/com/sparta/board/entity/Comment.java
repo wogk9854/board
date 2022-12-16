@@ -29,7 +29,7 @@ public class Comment extends Timestamped{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)//댓글 삭제되면대댓글도삭제
+    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)//댓글 삭제되면대댓글도삭제
     @OrderBy("id asc")
     List<ReComment> reComments;
 

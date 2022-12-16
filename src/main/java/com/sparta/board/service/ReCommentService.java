@@ -1,13 +1,13 @@
 package com.sparta.board.service;
 
-import com.sparta.board.dto.*;
-import com.sparta.board.entity.*;
-import com.sparta.board.repository.BoardRepository;
+import com.sparta.board.dto.ReCommentRequestDto;
+import com.sparta.board.dto.ReCommentResponseDto;
+import com.sparta.board.entity.Comment;
+import com.sparta.board.entity.ReComment;
+import com.sparta.board.entity.User;
 import com.sparta.board.repository.CommentRepository;
 import com.sparta.board.repository.ReCommentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
